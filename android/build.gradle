@@ -4,36 +4,43 @@ version '1.0-SNAPSHOT'
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral() // 替换 jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.android.tools.build:gradle:7.4.2' // 更新版本
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral() // 替换 jcenter()
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    namespace 'com.amap.location.amaplocationflutterplugin' // 添加这一行
+    compileSdk 34 // 更新为数字格式
 
     defaultConfig {
-        minSdkVersion 16
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion 21 // 建议升级到 21
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner" // 更新测试运行器
     }
     lintOptions {
         disable 'InvalidPackage'
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11 // 添加编译选项
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
     dependencies {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
-//        compile 'com.amap.api:location:4.9.0'
+        // 如果需要高德定位 SDK，取消注释并更新版本
+        // implementation 'com.amap.api:location:latest.version'
     }
 }
